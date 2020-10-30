@@ -116,10 +116,8 @@ public class BasicOpMode_Iterative extends OpMode
 
         // POV Mode uses left stick to go forward, and right stick to turn.
         // - This uses basic math to combine motions and is easier to drive straight.
-        double drive = -gamepad1.left_stick_y;
-        double turn  =  gamepad1.right_stick_x;
-        leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-        rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
+        EngineValues engineValues = determineEnginePower(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x);
+
 
         // Tank Mode uses one stick to control each wheel.
         // - This requires no math, but it is hard to drive forward slowly and keep straight.
@@ -127,14 +125,15 @@ public class BasicOpMode_Iterative extends OpMode
         // rightPower = -gamepad1.right_stick_y ;
 
         // Send calculated power to wheels
-        leftFrontDrive.setPower(leftPower);
-        leftBackDrive.setPower(leftPower);
-        rightFrontDrive.setPower(rightPower);
-        rightBackDrive.setPower(rightPower);
+        leftFrontDrive.setPower(engineValues.leftFrontPower);
+        leftBackDrive.setPower(engineValues.leftBackPower);
+        rightFrontDrive.setPower(engineValues.rightFrontPower);
+        rightBackDrive.setPower(engineValues.rightBackPower);
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
-        telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
+        telemetry.addData("Stick values", "left.x: (%.2f), left.y: (%.2f), right.x: (%.2f), right.y: (%.2f)", gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, gamepad1.right_stick_y);
+//        telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
     }
 
     /*
@@ -144,4 +143,14 @@ public class BasicOpMode_Iterative extends OpMode
     public void stop() {
     }
 
+    public EngineValues determineEnginePower(double leftStickX, double leftStickY, double rightStickX) {
+        EngineValues engineValues = new EngineValues();
+
+        engineValues.leftFrontPower = leftStickY + leftStickX + rightStickX;
+        engineValues.leftBackPower = leftStickY - leftStickX + rightStickX;
+        engineValues.rightFrontPower = leftStickY - leftStickX - rightStickX;
+        engineValues.rightBackPower = leftStickY + leftStickX - rightStickX;
+
+        return engineValues;
+    }
 }
