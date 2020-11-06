@@ -62,7 +62,7 @@ public class BasicOpMode_Iterative extends OpMode
     private DcMotor rightBackDrive = null;
 
     private static final double MINIMUM_STICK_VALUE = .2;
-
+    private static final double STRAFE_CORRECTION_FACTOR = 1.5;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -158,11 +158,28 @@ public class BasicOpMode_Iterative extends OpMode
             rightStickX = 0;
         }
 
+        leftStickX = leftStickX * STRAFE_CORRECTION_FACTOR;
 
         engineValues.leftFrontPower = leftStickY + leftStickX + rightStickX;
         engineValues.leftBackPower = leftStickY - leftStickX + rightStickX;
         engineValues.rightFrontPower = leftStickY - leftStickX - rightStickX;
         engineValues.rightBackPower = leftStickY + leftStickX - rightStickX;
+
+        if (Math.abs(engineValues.leftFrontPower) > 1 || Math.abs(engineValues.leftBackPower) > 1 ||
+                Math.abs(engineValues.rightFrontPower) > 1 || Math.abs(engineValues.rightBackPower) > 1 ) {
+            // Find the largest power
+            double max = 0;
+            max = Math.max(Math.abs(engineValues.leftFrontPower), Math.abs(engineValues.leftBackPower));
+            max = Math.max(Math.abs(engineValues.rightFrontPower), max);
+            max = Math.max(Math.abs(engineValues.rightBackPower), max);
+
+            // Divide everything by max (it's positive so we don't need to worry
+            // about signs)
+            engineValues.leftFrontPower /= max;
+            engineValues.leftBackPower /= max;
+            engineValues.rightFrontPower /= max;
+            engineValues.rightBackPower /= max;
+        }
 
         return engineValues;
     }

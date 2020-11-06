@@ -80,4 +80,14 @@ public class BasicOpMode_IterativeTest {
         assertEquals(0, engineValues.rightBackPower, 0.0);
         assertEquals(0, engineValues.rightFrontPower, 0.0);
     }
+
+    @Test
+    public void testLowNegativeStickValues() {
+        EngineValues engineValues = testObject.determineEnginePower(-.1, -.1, -.1);
+        assertEquals(0, engineValues.leftBackPower, 0.0);
+        assertEquals(0, engineValues.leftFrontPower, 0.0);
+        assertEquals(0, engineValues.rightBackPower, 0.0);
+        assertEquals(0, engineValues.rightFrontPower, 0.0);
+    }
+
 }
