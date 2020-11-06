@@ -61,6 +61,9 @@ public class BasicOpMode_Iterative extends OpMode
     private DcMotor leftBackDrive = null;
     private DcMotor rightBackDrive = null;
 
+    private static final double MINIMUM_STICK_VALUE = .2;
+
+
     /*
      * Code to run ONCE when the driver hits INIT
      */
@@ -145,6 +148,16 @@ public class BasicOpMode_Iterative extends OpMode
 
     public EngineValues determineEnginePower(double leftStickX, double leftStickY, double rightStickX) {
         EngineValues engineValues = new EngineValues();
+        if (Math.abs(leftStickX) < MINIMUM_STICK_VALUE) {
+            leftStickX = 0;
+        }
+        if (Math.abs(leftStickY) < MINIMUM_STICK_VALUE) {
+            leftStickY = 0;
+        }
+        if (Math.abs(rightStickX) < MINIMUM_STICK_VALUE) {
+            rightStickX = 0;
+        }
+
 
         engineValues.leftFrontPower = leftStickY + leftStickX + rightStickX;
         engineValues.leftBackPower = leftStickY - leftStickX + rightStickX;
