@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-public class RobotControl {
+public class RobotHardware {
 
     /* Public OpMode members. */
     public DcMotor leftFrontDrive = null;
@@ -13,10 +13,17 @@ public class RobotControl {
     public DcMotor leftBackDrive = null;
     public DcMotor rightBackDrive = null;
 
+    public Servo ringBearer0 = null;
+    public Servo ringBearer1 = null;
+    public Servo wobbleRelease = null;
+
+
 
     /* local OpMode members. */
     HardwareMap hardwareMap =  null;
     private ElapsedTime period  = new ElapsedTime();
+
+    private RobotController robotController = new RobotController(this);
 
     /* Initialize standard Hardware interfaces */
     public void init(HardwareMap ahwMap) {
@@ -31,6 +38,9 @@ public class RobotControl {
         rightFrontDrive = hardwareMap.get(DcMotor.class, "right_front_drive");
         leftBackDrive = hardwareMap.get(DcMotor.class, "left_back_drive");
         rightBackDrive = hardwareMap.get(DcMotor.class, "right_back_drive");
+        ringBearer0 = hardwareMap.get(Servo.class, "ringBearer0");
+        ringBearer1 = hardwareMap.get(Servo.class, "ringBearer1");
+        wobbleRelease = hardwareMap.get(Servo.class, "wobbleRelease");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
@@ -50,7 +60,7 @@ public class RobotControl {
 //        leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 //        rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 //        leftArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-//
+        robotController.ringBearerDown();
     }
 }
 

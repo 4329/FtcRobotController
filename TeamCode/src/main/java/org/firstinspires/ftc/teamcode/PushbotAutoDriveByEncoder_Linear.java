@@ -30,12 +30,9 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 /**
  * This file illustrates the concept of driving a path based on encoder counts.
@@ -68,7 +65,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
 
     /* Declare OpMode members. */
-    RobotControl         robot   = new RobotControl();   //declaration
+    RobotHardware robot   = new RobotHardware();   //declaration
     private ElapsedTime     runtime = new ElapsedTime();
 
     static final double     COUNTS_PER_MOTOR_REV    = 1120 ;
@@ -116,12 +113,19 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED,  48,  "FORWARD", 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-        encoderDrive(DRIVE_SPEED,   24, "STRAFE_RIGHT", 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+
+
+        moveFromStartToFirstZone();
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
     }
+
+    private void moveFromStartToFirstZone() {
+        encoderDrive(DRIVE_SPEED,  72,  "FORWARD", 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
+        encoderDrive(DRIVE_SPEED,   12, "STRAFE_RIGHT", 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+    }
+
 
     /*
      *  Method to perform a relative move, based on encoder counts.
