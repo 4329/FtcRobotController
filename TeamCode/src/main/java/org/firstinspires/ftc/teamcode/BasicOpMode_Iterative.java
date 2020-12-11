@@ -29,14 +29,9 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -111,6 +106,12 @@ public class BasicOpMode_Iterative extends OpMode
         }
         if (gamepad2.b) {
                 robotController.ringBearerDown();
+        }
+        if (gamepad2.y) {
+                robotController.releaseWobble();
+        }
+        if (gamepad2.x) {
+                robotController.secureWobble();
         }
 
         // Tank Mode uses one stick to control each wheel.

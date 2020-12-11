@@ -7,12 +7,22 @@ public class RobotController {
         this.robot = poop;
     }
     public void ringBearerUp() {
-        robot.ringBearer0.setPosition(0.3);
-        robot.ringBearer1.setPosition(0.7);
+        robot.ringBearer0.setPosition(0.35);
+        robot.ringBearer1.setPosition(0.65);
     }
 
     public void ringBearerDown() {
         robot.ringBearer0.setPosition(0);
         robot.ringBearer1.setPosition(1);
+    }
+
+    public void secureWobble() {
+        robot.wobbleRelease.setPosition(0);
+
+
+    }
+
+    public void releaseWobble() {
+        robot.wobbleRelease.setPosition(0.15);
     }
 }
