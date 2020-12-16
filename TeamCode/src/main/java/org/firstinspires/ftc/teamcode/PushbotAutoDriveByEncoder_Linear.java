@@ -122,8 +122,9 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
     }
 
     private void moveFromStartToFirstZone() {
-        encoderDrive(DRIVE_SPEED,  72,  "FORWARD", 5.0);  // S1: Forward 47 Inches with 5 Sec timeout
-        encoderDrive(DRIVE_SPEED,   12, "STRAFE_RIGHT", 4.0);  // S2: Turn Right 12 Inches with 4 Sec timeout
+        encoderDrive(DRIVE_SPEED,  123.25,  "BACKWARD", 10);
+        encoderDrive(TURN_SPEED, 9.25, "STRAFE_RIGHT", 3);
+
     }
 
 
@@ -160,7 +161,21 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
                 newLeftBackTarget *= -1;
 
             }
+            else if (direction.equals("TURN_LEFT")) {
+                newLeftFrontTarget *= -1;
+                newLeftBackTarget *= -1;
+            }
+            else if (direction.equals("FORWARD_RIGHT")) {
+                newRightFrontTarget = robot.rightFrontDrive.getCurrentPosition();
+                newLeftBackTarget = robot.leftBackDrive.getCurrentPosition();
 
+            }
+            else if (direction.equals("BACKWARD")) {
+                newLeftBackTarget *= -1;
+                newLeftFrontTarget *= -1;
+                newRightBackTarget *= -1;
+                newRightFrontTarget *= -1;
+            }
             robot.leftFrontDrive.setTargetPosition(newLeftFrontTarget);
             robot.rightFrontDrive.setTargetPosition(newRightFrontTarget);
             robot.leftBackDrive.setTargetPosition(newLeftBackTarget);
@@ -190,10 +205,10 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
                            && robot.leftBackDrive.isBusy() && robot.rightBackDrive.isBusy())) {
 
 //                // Display it for the driver.
-//                telemetry.addData("Path1",  "Running to %7d :%7d", newLeftFrontTarget,  newRightBackTarget);
-//                telemetry.addData("Path2",  "Running at %7d :%7d",
-//                                            robot.leftDrive.getCurrentPosition(),
-//                                            robot.rightDrive.getCurrentPosition());
+                telemetry.addData("Targets",  "Running to %7d , %7d , %7d , %7d", newLeftFrontTarget,  newRightFrontTarget, newLeftBackTarget, newRightBackTarget);
+                telemetry.addData("Currant",  "Running to %7d , %7d , %7d , %7d",
+                                            robot.leftFrontDrive.getCurrentPosition(),
+                                            robot.rightFrontDrive.getCurrentPosition(),robot.leftBackDrive.getCurrentPosition(),robot.rightBackDrive.getCurrentPosition());
                 telemetry.update();
             }
 
