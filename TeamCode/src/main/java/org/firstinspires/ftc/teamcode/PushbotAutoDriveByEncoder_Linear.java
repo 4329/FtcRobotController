@@ -66,6 +66,7 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
 
     /* Declare OpMode members. */
     RobotHardware robot   = new RobotHardware();   //declaration
+    RobotController robotController = new RobotController(robot);
     private ElapsedTime     runtime = new ElapsedTime();
 
     static final double     COUNTS_PER_MOTOR_REV    = 1120 ;
@@ -123,10 +124,12 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
 
     private void moveFromStartToFirstZone() {
         encoderDrive(DRIVE_SPEED,  96,  RobotDirection.BACKWARD, 7);
-        sleep(750);
+        robotController.ringBearerHalfway();
         encoderDrive(DRIVE_SPEED, 32, RobotDirection.BACKWARD, 5);
         encoderDrive(DRIVE_SPEED, 14, RobotDirection.STRAFE_RIGHT, 3);
-        sleep(850);
+        robotController.ringBearerUp();
+        sleep(500);
+        robotController.ringBearerDown();
         encoderDrive(DRIVE_SPEED, 1.5, RobotDirection.FORWARD, 1);
         encoderDrive(DRIVE_SPEED, 30, RobotDirection.STRAFE_LEFT, 5);
         encoderDrive(DRIVE_SPEED, 49, RobotDirection.FORWARD, 4);

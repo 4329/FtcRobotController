@@ -111,7 +111,7 @@ public class BasicOpMode_Iterative extends OpMode
                 robotController.releaseWobble();
         }
         if (gamepad2.x) {
-                robotController.secureWobble();
+                robotController.ringBearerHalfway();
         }
 
         // Tank Mode uses one stick to control each wheel.
