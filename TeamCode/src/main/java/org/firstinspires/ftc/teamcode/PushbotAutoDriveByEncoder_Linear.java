@@ -122,8 +122,14 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
     }
 
     private void moveFromStartToFirstZone() {
-        encoderDrive(DRIVE_SPEED,  123.25,  "BACKWARD", 10);
-        encoderDrive(TURN_SPEED, 9.25, "STRAFE_RIGHT", 3);
+        encoderDrive(DRIVE_SPEED,  96,  RobotDirection.BACKWARD, 7);
+        sleep(750);
+        encoderDrive(DRIVE_SPEED, 32, RobotDirection.BACKWARD, 5);
+        encoderDrive(DRIVE_SPEED, 14, RobotDirection.STRAFE_RIGHT, 3);
+        sleep(850);
+        encoderDrive(DRIVE_SPEED, 1.5, RobotDirection.FORWARD, 1);
+        encoderDrive(DRIVE_SPEED, 30, RobotDirection.STRAFE_LEFT, 5);
+        encoderDrive(DRIVE_SPEED, 49, RobotDirection.FORWARD, 4);
 
     }
 
@@ -137,44 +143,53 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
      *  3) Driver stops the opmode running.
      */
     public void encoderDrive(double speed,
-                             double inches, String direction,
+                             double inches, RobotDirection direction,
                              double timeoutS) {
-        int newLeftFrontTarget;
-        int newRightFrontTarget;
-        int newLeftBackTarget;
-        int newRightBackTarget;
+        int newLeftFrontTarget = 0;
+        int newRightFrontTarget = 0;
+        int newLeftBackTarget = 0;
+        int newRightBackTarget = 0;
 
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
          int distance = (int) (inches * COUNTS_PER_INCH);
-            if (direction.equals("STRAFE_RIGHT")) {
+            if (direction.equals(RobotDirection.STRAFE_RIGHT)) {
                 distance *= STRAFE_BONUS_EXTRA_K;
+                newRightFrontTarget = robot.rightFrontDrive.getCurrentPosition()+(distance * -1);
+                newLeftBackTarget = robot.leftBackDrive.getCurrentPosition()+(distance * -1);
+                newRightBackTarget = robot.rightBackDrive.getCurrentPosition()+(distance);
+                newLeftFrontTarget = robot.leftFrontDrive.getCurrentPosition()+(distance);
             }
-            // Determine new target position, and pass to motor controller
-            newLeftFrontTarget = robot.leftFrontDrive.getCurrentPosition() + distance;
-            newRightFrontTarget = robot.rightFrontDrive.getCurrentPosition() + distance;
-            newLeftBackTarget = robot.leftBackDrive.getCurrentPosition() + distance;
-            newRightBackTarget = robot.rightBackDrive.getCurrentPosition() + distance;
-
-            if (direction.equals("STRAFE_RIGHT")) {
-                newRightFrontTarget = newRightFrontTarget * -1;
-                newLeftBackTarget *= -1;
-
+            else if (direction.equals(RobotDirection.STRAFE_LEFT)) {
+                distance *= STRAFE_BONUS_EXTRA_K;
+                newRightFrontTarget = robot.rightFrontDrive.getCurrentPosition()+(distance);
+                newLeftBackTarget = robot.leftBackDrive.getCurrentPosition()+(distance);
+                newRightBackTarget = robot.rightBackDrive.getCurrentPosition()+(distance * -1);
+                newLeftFrontTarget = robot.leftFrontDrive.getCurrentPosition()+(distance * -1);
             }
-            else if (direction.equals("TURN_LEFT")) {
-                newLeftFrontTarget *= -1;
-                newLeftBackTarget *= -1;
+            else if (direction.equals(RobotDirection.TURN_LEFT)) {
+                newRightFrontTarget = robot.rightFrontDrive.getCurrentPosition()+(distance);
+                newLeftBackTarget = robot.leftBackDrive.getCurrentPosition()+(distance * -1);
+                newRightBackTarget = robot.rightBackDrive.getCurrentPosition()+(distance);
+                newLeftFrontTarget = robot.leftFrontDrive.getCurrentPosition()+(distance * -1);
             }
-            else if (direction.equals("FORWARD_RIGHT")) {
+            else if (direction.equals(RobotDirection.FORWARD_RIGHT)) {
                 newRightFrontTarget = robot.rightFrontDrive.getCurrentPosition();
                 newLeftBackTarget = robot.leftBackDrive.getCurrentPosition();
-
+                newRightBackTarget = robot.rightBackDrive.getCurrentPosition()+(distance);
+                newLeftFrontTarget = robot.leftFrontDrive.getCurrentPosition()+(distance);
             }
-            else if (direction.equals("BACKWARD")) {
-                newLeftBackTarget *= -1;
-                newLeftFrontTarget *= -1;
-                newRightBackTarget *= -1;
-                newRightFrontTarget *= -1;
+            else if (direction.equals(RobotDirection.BACKWARD)) {
+                newRightFrontTarget = robot.rightFrontDrive.getCurrentPosition()+(distance * -1);
+                newLeftBackTarget = robot.leftBackDrive.getCurrentPosition()+(distance * -1);
+                newRightBackTarget = robot.rightBackDrive.getCurrentPosition()+(distance * -1);
+                newLeftFrontTarget = robot.leftFrontDrive.getCurrentPosition()+(distance * -1);
+            }
+            else if (direction.equals(RobotDirection.FORWARD)) {
+                newLeftFrontTarget = robot.leftFrontDrive.getCurrentPosition() + distance;
+                newRightFrontTarget = robot.rightFrontDrive.getCurrentPosition() + distance;
+                newLeftBackTarget = robot.leftBackDrive.getCurrentPosition() + distance;
+                newRightBackTarget = robot.rightBackDrive.getCurrentPosition() + distance;
             }
             robot.leftFrontDrive.setTargetPosition(newLeftFrontTarget);
             robot.rightFrontDrive.setTargetPosition(newRightFrontTarget);
