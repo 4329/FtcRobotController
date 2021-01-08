@@ -5,6 +5,11 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+
 public class RobotHardware {
 
     /* Public OpMode members. */
@@ -16,6 +21,14 @@ public class RobotHardware {
     public Servo ringBearer0 = null;
     public Servo ringBearer1 = null;
     public Servo wobbleRelease = null;
+    private static final String VUFORIA_KEY =
+        "AT65lYD/////AAABmYLSlMYJ50sZuYO3mRZFMtApeNGp82g4hf/Trb2fI6/FfDhf6CoeqAyeZLBQgpLF9rYRV4krMK5JW/TiqGulVw0fDMOfOQjc03Qs8YkFrIT6rWLRVlvS2NoZgDAGDHEEZvf/S1c34clJmw45b7uzcJYgVxdlRoSM7uU/u4ne8+aikzB4MWu4xybCUVsFl44lW/2acUNJmJ1XFjkspO/TP1M/s42NTOBNPeMA+6sy8wIbvtn3BRrQnklOnIGYSaRNC/Yl2UTuUCBzM5fPB2eRBS+e9hgJNORHm29YKfprz0dM6Ah0ubrrQdI2HLlGGUiqO6JnKtASw0SYNvdSKIZG4VU5fI7MTvjHenteZOeLbHl3";
+
+    private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
+    private static final String LABEL_FIRST_ELEMENT = "Quad";
+    private static final String LABEL_SECOND_ELEMENT = "Single";
+    private VuforiaLocalizer vuforia;
+    private TFObjectDetector tfod;
 
 
 
@@ -63,7 +76,36 @@ public class RobotHardware {
         wobbleRelease.setDirection(Servo.Direction.REVERSE);
         robotController.ringBearerDown();
         robotController.secureWobble();
+        initVuforia();
+        initTfod();
 
+    }
+    private void initVuforia() {
+        /*
+         * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
+         */
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
+
+        parameters.vuforiaLicenseKey = VUFORIA_KEY;
+        parameters.cameraName = hardwareMap.get(WebcamName.class, "goldenEye");
+
+        //  Instantiate the Vuforia engine
+        vuforia = ClassFactory.getInstance().createVuforia(parameters);
+
+        // Loading trackables is not necessary for the TensorFlow Object Detection engine.
+    }
+    private void initTfod() {
+        int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
+                "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
+        tfodParameters.minResultConfidence = 0.8f;
+        tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
+        tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT, LABEL_SECOND_ELEMENT);
+        if (tfod != null) {
+            tfod.activate();
+            tfod.setZoom(1.25, 5.33);
+            robotController.setTfod(tfod);
+        }
     }
 }
 

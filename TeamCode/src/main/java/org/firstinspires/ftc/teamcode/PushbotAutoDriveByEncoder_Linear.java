@@ -34,6 +34,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+
+import java.util.List;
+
 /**
  * This file illustrates the concept of driving a path based on encoder counts.
  * It uses the common Pushbot hardware class to define the drive on the robot.
@@ -115,10 +119,11 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
 
-
-        moveFromStartToFirstZone();
+        RingStack ringStack = moveAndScan();
+        //moveFromStartToFirstZone();
 
         telemetry.addData("Path", "Complete");
+        telemetry.addData("Ring_Stack", ringStack);
         telemetry.update();
     }
 
@@ -136,6 +141,25 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
         encoderDrive(DRIVE_SPEED, 30, RobotDirection.STRAFE_LEFT, 5);
         encoderDrive(DRIVE_SPEED, 49, RobotDirection.FORWARD, 4);
 
+    }
+    protected RingStack moveAndScan() {
+        encoderDrive(DRIVE_SPEED, 12, RobotDirection.BACKWARD, 2);
+        encoderDrive(DRIVE_SPEED, 12, RobotDirection.STRAFE_RIGHT, 2);
+        List<Recognition> recognitions = robotController.getRecognitions();
+            if (recognitions == null){
+                return RingStack.NONE;
+            }
+            else {
+                for (Recognition re : recognitions) {
+                    if (re.getLabel().equals("Single")){
+                        return RingStack.ONE;
+                    }
+                    else if (re.getLabel().equals("Quad")){
+                        return RingStack.FOUR;
+                    }
+                }
+            }
+        return RingStack.NONE;
     }
 
 
