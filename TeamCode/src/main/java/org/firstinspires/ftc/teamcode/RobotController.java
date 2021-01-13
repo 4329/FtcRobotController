@@ -26,13 +26,12 @@ public class RobotController {
         robot.ringBearer1.setPosition(0.9);
     }
     public void secureWobble() {
-        robot.wobbleRelease.setPosition(0);
-
+        robot.wobbleRelease.setPosition(0.77);
 
     }
 
     public void releaseWobble() {
-        robot.wobbleRelease.setPosition(0.15);
+        robot.wobbleRelease.setPosition(1);
     }
 
     public void setTfod(TFObjectDetector tfod) {
