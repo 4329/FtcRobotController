@@ -113,7 +113,12 @@ public class BasicOpMode_Iterative extends OpMode
         if (gamepad2.x) {
                 robotController.secureWobble();
         }
-
+        if (gamepad2.left_stick_y>0){
+            robotController.ringBearerLower();
+        }
+        if (gamepad2.left_stick_y<0){
+            robotController.ringBearerRaise();
+        }
         // Tank Mode uses one stick to control each wheel.
         // - This requires no math, but it is hard to drive forward slowly and keep straight.
         // leftPower  = -gamepad1.left_stick_y ;
