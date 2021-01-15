@@ -1,13 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
-import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
 import java.util.List;
 
 public class RobotController {
     private final RobotHardware robot;
-    private TFObjectDetector tfod;
 
     double position0 = 0;
     double position1 = 0;
@@ -57,12 +55,9 @@ public class RobotController {
         robot.wobbleRelease.setPosition(1);
     }
 
-    public void setTfod(TFObjectDetector tfod) {
-        this.tfod = tfod;
-    }
 
     public List<Recognition> getRecognitions() {
-        return tfod.getUpdatedRecognitions();
+        return robot.tfod.getUpdatedRecognitions();
     }
 
 }

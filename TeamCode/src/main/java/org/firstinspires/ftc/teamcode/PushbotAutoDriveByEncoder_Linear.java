@@ -118,13 +118,43 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-
-        RingStack ringStack = moveAndScan();
+        moveToScan();
+        RingStack ringStack = scanRings();
+            telemetry.addData("Ring_Stack", ringStack);
         //moveFromStartToFirstZone();
 
         telemetry.addData("Path", "Complete");
-        telemetry.addData("Ring_Stack", ringStack);
         telemetry.update();
+
+        if(ringStack.equals(RingStack.NONE)) {
+            moveToZoneAlpha();
+        }
+        else if(ringStack.equals(RingStack.ONE)) {
+            moveToZoneBravo();
+        }
+        else {
+            moveToZoneCharlie();
+
+        }
+    }
+
+    private void moveToZoneAlpha() {
+        encoderDrive(DRIVE_SPEED, 18, RobotDirection.STRAFE_LEFT, 3.33);
+        encoderDrive(DRIVE_SPEED, 60, RobotDirection.BACKWARD, 5.75);
+        encoderDrive(DRIVE_SPEED, 28, RobotDirection.STRAFE_RIGHT, 4);
+        robotController.releaseWobble();
+        encoderDrive(DRIVE_SPEED, 49.66, RobotDirection.BACKWARD, 5);
+        encoderDrive(DRIVE_SPEED, 10, RobotDirection.STRAFE_LEFT, 3.33);
+        robotController.ringBearerUp();
+        encoderDrive(DRIVE_SPEED, 51.34, RobotDirection.FORWARD, 5.75);
+    }
+
+    private void moveToZoneBravo() {
+
+    }
+
+    private void moveToZoneCharlie() {
+
     }
 
     private void moveFromStartToFirstZone() {
@@ -142,9 +172,12 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
         encoderDrive(DRIVE_SPEED, 49, RobotDirection.FORWARD, 4);
 
     }
-    protected RingStack moveAndScan() {
+    protected void moveToScan(){
         encoderDrive(DRIVE_SPEED, 12, RobotDirection.BACKWARD, 2);
         encoderDrive(DRIVE_SPEED, 12, RobotDirection.STRAFE_RIGHT, 2);
+    }
+    protected RingStack scanRings() {
+
         List<Recognition> recognitions = robotController.getRecognitions();
             if (recognitions == null){
                 return RingStack.NONE;

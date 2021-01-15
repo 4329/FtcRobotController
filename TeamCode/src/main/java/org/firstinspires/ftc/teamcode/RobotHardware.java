@@ -28,7 +28,7 @@ public class RobotHardware {
     private static final String LABEL_FIRST_ELEMENT = "Quad";
     private static final String LABEL_SECOND_ELEMENT = "Single";
     private VuforiaLocalizer vuforia;
-    private TFObjectDetector tfod;
+    protected TFObjectDetector tfod;
 
 
 
@@ -103,8 +103,7 @@ public class RobotHardware {
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT, LABEL_SECOND_ELEMENT);
         if (tfod != null) {
             tfod.activate();
-            tfod.setZoom(1.25, 5.33);
-            robotController.setTfod(tfod);
+            tfod.setZoom(1.25, 1.77);
         }
     }
 }
