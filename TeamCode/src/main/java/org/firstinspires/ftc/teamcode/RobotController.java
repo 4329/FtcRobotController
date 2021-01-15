@@ -9,37 +9,43 @@ public class RobotController {
     private final RobotHardware robot;
     private TFObjectDetector tfod;
 
+    double position0 = 0;
+    double position1 = 0;
+
     public RobotController(RobotHardware poop) {
         this.robot = poop;
     }
     public void ringBearerUp() {
-        robot.ringBearer0.setPosition(0.45);
-        robot.ringBearer1.setPosition(0.55);
+        position0 = 0.45;
+        position1 = 0.55;
+        moveRingBearer();
+
+    }
+
+    private void moveRingBearer() {
+        robot.ringBearer0.setPosition(position0);
+        robot.ringBearer1.setPosition(position1);
     }
 
     public void ringBearerDown() {
-        robot.ringBearer0.setPosition(0);
-        robot.ringBearer1.setPosition(1);
+        position0 = 0.0;
+        position1 = 1.0;
+        moveRingBearer();
     }
     public void ringBearerHalfway() {
-        robot.ringBearer0.setPosition(0.1);
-        robot.ringBearer1.setPosition(0.9);
+        position0 = 0.1;
+        position1 = 0.9;
+        moveRingBearer();
     }
     public void ringBearerLower() {
-        double position0 = robot.ringBearer0.getPosition();
-        double position1 = robot.ringBearer1.getPosition();
-    position0 = Math.max(position0-.01,0);
-    position1 = Math.min(position1+.01,1);
-        robot.ringBearer0.setPosition(position0);
-        robot.ringBearer1.setPosition(position1);
+    position0 = Math.max(position0 - .01, 0.0);
+    position1 = Math.min(position1 + .01, 1.0);
+        moveRingBearer();
     }
     public void ringBearerRaise() {
-        double position0 = robot.ringBearer0.getPosition();
-        double position1 = robot.ringBearer1.getPosition();
-        position0 = Math.min(position0+.01,0);
-        position1 = Math.max(position1-.01,1);
-        robot.ringBearer0.setPosition(position0);
-        robot.ringBearer1.setPosition(position1);
+        position0 = Math.min(position0 + .01, 1.0);
+        position1 = Math.max(position1 - .01, 0.0);
+        moveRingBearer();
     }
 
     public void secureWobble() {
