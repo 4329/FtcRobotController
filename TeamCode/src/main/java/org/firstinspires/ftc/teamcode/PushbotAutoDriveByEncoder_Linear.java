@@ -143,18 +143,45 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
         encoderDrive(DRIVE_SPEED, 60, RobotDirection.BACKWARD, 5.75);
         encoderDrive(DRIVE_SPEED, 28, RobotDirection.STRAFE_RIGHT, 4);
         robotController.releaseWobble();
-        encoderDrive(DRIVE_SPEED, 49.66, RobotDirection.BACKWARD, 5);
+        sleep(1000);
+        robotController.ringBearerDown();
+        encoderDrive(DRIVE_SPEED, 51.33, RobotDirection.BACKWARD, 5);
         encoderDrive(DRIVE_SPEED, 10, RobotDirection.STRAFE_LEFT, 3.33);
         robotController.ringBearerUp();
-        encoderDrive(DRIVE_SPEED, 51.34, RobotDirection.FORWARD, 5.75);
+        sleep(1000);
+        robotController.ringBearerDown();
+        encoderDrive(DRIVE_SPEED, 53.67, RobotDirection.FORWARD, 5.75);
     }
 
     private void moveToZoneBravo() {
-
+        encoderDrive(DRIVE_SPEED, 18, RobotDirection.STRAFE_LEFT, 3.33);
+        encoderDrive(DRIVE_SPEED, 84, RobotDirection.BACKWARD, 6.50);
+        encoderDrive(DRIVE_SPEED, 4, RobotDirection.STRAFE_RIGHT, 1);
+        robotController.releaseWobble();
+        sleep(1000);
+        robotController.ringBearerDown();
+        encoderDrive(DRIVE_SPEED, 27.50, RobotDirection.BACKWARD, 3.50);
+        encoderDrive(DRIVE_SPEED, 11, RobotDirection.STRAFE_RIGHT, 5);
+        robotController.ringBearerUp();
+        sleep(1000);
+        robotController.ringBearerDown();
+        encoderDrive(DRIVE_SPEED,  21, RobotDirection.STRAFE_LEFT, 5);
+        encoderDrive(DRIVE_SPEED, 51.34, RobotDirection.FORWARD, 5.75);
     }
 
     private void moveToZoneCharlie() {
-
+        encoderDrive(DRIVE_SPEED, 18, RobotDirection.STRAFE_LEFT, 3.33);
+        encoderDrive(DRIVE_SPEED, 106, RobotDirection.BACKWARD, 6.50);
+        encoderDrive(DRIVE_SPEED,28, RobotDirection.STRAFE_RIGHT, 4);
+        robotController.releaseWobble();
+        sleep(1000);
+        robotController.ringBearerDown();
+        encoderDrive(DRIVE_SPEED, 5.5, RobotDirection.BACKWARD, 1);
+        encoderDrive(DRIVE_SPEED, 10, RobotDirection.STRAFE_LEFT, 3.33);
+        robotController.ringBearerUp();
+        sleep(1000);
+        robotController.ringBearerDown();
+        encoderDrive(DRIVE_SPEED, 53.67, RobotDirection.FORWARD, 5.75);
     }
 
     private void moveFromStartToFirstZone() {
@@ -175,6 +202,7 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
     protected void moveToScan(){
         encoderDrive(DRIVE_SPEED, 12, RobotDirection.BACKWARD, 2);
         encoderDrive(DRIVE_SPEED, 12, RobotDirection.STRAFE_RIGHT, 2);
+        sleep(250);
     }
     protected RingStack scanRings() {
 
