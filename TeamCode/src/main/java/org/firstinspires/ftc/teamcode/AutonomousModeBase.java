@@ -65,8 +65,7 @@ import java.util.List;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Pushbot: Auto Drive By Encoder", group="Pushbot")
-public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
+public abstract class AutonomousModeBase extends LinearOpMode {
 
     /* Declare OpMode members. */
     RobotHardware robot   = new RobotHardware();   //declaration
@@ -121,9 +120,7 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
         moveToScan();
         RingStack ringStack = scanRings();
             telemetry.addData("Ring_Stack", ringStack);
-        //moveFromStartToFirstZone();
 
-        telemetry.addData("Path", "Complete");
         telemetry.update();
 
         if(ringStack.equals(RingStack.NONE)) {
@@ -138,70 +135,55 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
         }
     }
 
-    private void moveToZoneAlpha() {
-        encoderDrive(DRIVE_SPEED, 18, RobotDirection.STRAFE_LEFT, 3.33);
+    protected void moveToZoneAlpha() {
+        encoderDrive(DRIVE_SPEED, 18, getStrafeDirection(RobotDirection.STRAFE_LEFT), 3.33);
         encoderDrive(DRIVE_SPEED, 60, RobotDirection.BACKWARD, 5.75);
-        encoderDrive(DRIVE_SPEED, 28, RobotDirection.STRAFE_RIGHT, 4);
+        encoderDrive(DRIVE_SPEED, 28, getStrafeDirection(RobotDirection.STRAFE_RIGHT), 4);
         robotController.releaseWobble();
         sleep(1000);
         robotController.ringBearerDown();
         encoderDrive(DRIVE_SPEED, 51.33, RobotDirection.BACKWARD, 5);
-        encoderDrive(DRIVE_SPEED, 10, RobotDirection.STRAFE_LEFT, 3.33);
+        encoderDrive(DRIVE_SPEED, 10, getStrafeDirection(RobotDirection.STRAFE_LEFT), 3.33);
         robotController.ringBearerUp();
         sleep(1000);
         robotController.ringBearerDown();
         encoderDrive(DRIVE_SPEED, 53.67, RobotDirection.FORWARD, 5.75);
     }
 
-    private void moveToZoneBravo() {
-        encoderDrive(DRIVE_SPEED, 18, RobotDirection.STRAFE_LEFT, 3.33);
+    protected void moveToZoneBravo() {
+        encoderDrive(DRIVE_SPEED, 18, getStrafeDirection(RobotDirection.STRAFE_LEFT), 3.33);
         encoderDrive(DRIVE_SPEED, 84, RobotDirection.BACKWARD, 6.50);
-        encoderDrive(DRIVE_SPEED, 4, RobotDirection.STRAFE_RIGHT, 1);
+        encoderDrive(DRIVE_SPEED, 4, getStrafeDirection(RobotDirection.STRAFE_RIGHT), 1);
         robotController.releaseWobble();
         sleep(1000);
         robotController.ringBearerDown();
         encoderDrive(DRIVE_SPEED, 27.50, RobotDirection.BACKWARD, 3.50);
-        encoderDrive(DRIVE_SPEED, 11, RobotDirection.STRAFE_RIGHT, 5);
+        encoderDrive(DRIVE_SPEED, 11, getStrafeDirection(RobotDirection.STRAFE_RIGHT), 5);
         robotController.ringBearerUp();
         sleep(1000);
         robotController.ringBearerDown();
-        encoderDrive(DRIVE_SPEED,  21, RobotDirection.STRAFE_LEFT, 5);
+        encoderDrive(DRIVE_SPEED,  21, getStrafeDirection(RobotDirection.STRAFE_LEFT), 5);
         encoderDrive(DRIVE_SPEED, 51.34, RobotDirection.FORWARD, 5.75);
     }
 
-    private void moveToZoneCharlie() {
-        encoderDrive(DRIVE_SPEED, 18, RobotDirection.STRAFE_LEFT, 3.33);
+    protected void moveToZoneCharlie() {
+        encoderDrive(DRIVE_SPEED, 18,getStrafeDirection(RobotDirection.STRAFE_LEFT), 3.33);
         encoderDrive(DRIVE_SPEED, 106, RobotDirection.BACKWARD, 6.50);
-        encoderDrive(DRIVE_SPEED,28, RobotDirection.STRAFE_RIGHT, 4);
+        encoderDrive(DRIVE_SPEED,28, getStrafeDirection(RobotDirection.STRAFE_RIGHT), 4);
         robotController.releaseWobble();
         sleep(1000);
         robotController.ringBearerDown();
         encoderDrive(DRIVE_SPEED, 5.5, RobotDirection.BACKWARD, 1);
-        encoderDrive(DRIVE_SPEED, 10, RobotDirection.STRAFE_LEFT, 3.33);
+        encoderDrive(DRIVE_SPEED, 10, getStrafeDirection(RobotDirection.STRAFE_LEFT), 3.33);
         robotController.ringBearerUp();
         sleep(1000);
         robotController.ringBearerDown();
         encoderDrive(DRIVE_SPEED, 53.67, RobotDirection.FORWARD, 5.75);
     }
 
-    private void moveFromStartToFirstZone() {
-        encoderDrive(DRIVE_SPEED,  96,  RobotDirection.BACKWARD, 7);
-        robotController.ringBearerHalfway();
-        sleep(500);
-        robotController.ringBearerDown();
-        encoderDrive(DRIVE_SPEED, 32, RobotDirection.BACKWARD, 5);
-        encoderDrive(DRIVE_SPEED, 14, RobotDirection.STRAFE_RIGHT, 3);
-        robotController.ringBearerUp();
-        sleep(1300);
-        robotController.ringBearerDown();
-        encoderDrive(DRIVE_SPEED, 1.5, RobotDirection.FORWARD, 1);
-        encoderDrive(DRIVE_SPEED, 30, RobotDirection.STRAFE_LEFT, 5);
-        encoderDrive(DRIVE_SPEED, 49, RobotDirection.FORWARD, 4);
-
-    }
     protected void moveToScan(){
         encoderDrive(DRIVE_SPEED, 12, RobotDirection.BACKWARD, 2);
-        encoderDrive(DRIVE_SPEED, 12, RobotDirection.STRAFE_RIGHT, 2);
+        encoderDrive(DRIVE_SPEED, 12, getStrafeDirection(RobotDirection.STRAFE_RIGHT), 2);
         sleep(250);
     }
     protected RingStack scanRings() {
@@ -330,4 +312,5 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
             //  sleep(250);   // optional pause after each move
         }
     }
+    protected abstract RobotDirection getStrafeDirection (RobotDirection direction);
 }
