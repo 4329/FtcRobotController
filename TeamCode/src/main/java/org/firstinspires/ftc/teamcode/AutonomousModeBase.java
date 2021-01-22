@@ -183,9 +183,11 @@ public abstract class AutonomousModeBase extends LinearOpMode {
 
     protected void moveToScan(){
         encoderDrive(DRIVE_SPEED, 12, RobotDirection.BACKWARD, 2);
-        encoderDrive(DRIVE_SPEED, 12, getStrafeDirection(RobotDirection.STRAFE_RIGHT), 2);
+        encoderDrive(DRIVE_SPEED, 12, getScanStrafeDirection(RobotDirection.STRAFE_RIGHT), 2);
         sleep(250);
     }
+
+
     protected RingStack scanRings() {
 
         List<Recognition> recognitions = robotController.getRecognitions();
@@ -313,4 +315,7 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         }
     }
     protected abstract RobotDirection getStrafeDirection (RobotDirection direction);
+    protected abstract RobotDirection getScanStrafeDirection(RobotDirection direction);
+
+
 }

@@ -2,8 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name = "Red Autonomous Mode")
-public class RedAutomousMode extends AutonomousModeBase{
+public abstract class RedAutomousMode extends AutonomousModeBase{
     @Override
     protected RobotDirection getStrafeDirection(RobotDirection direction) {
        if(direction.equals(RobotDirection.STRAFE_LEFT)){
