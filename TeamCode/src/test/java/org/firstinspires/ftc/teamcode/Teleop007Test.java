@@ -4,9 +4,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class BasicOpMode_IterativeTest {
+public class Teleop007Test {
 
-    private BasicOpMode_Iterative testObject = new BasicOpMode_Iterative();
+    private Teleop007 testObject = new Teleop007();
 
     @Test
     public void testNoValues() {
