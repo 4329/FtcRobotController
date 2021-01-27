@@ -60,4 +60,11 @@ public class RobotController {
         return robot.tfod.getUpdatedRecognitions();
     }
 
+    public void nomNomRingTime() {
+        robot.hungryHungryCaterpillar.setPower(1);
+    }
+
+    public void noNomNoms() {
+        robot.hungryHungryCaterpillar.setPower(0);
+    }
 }

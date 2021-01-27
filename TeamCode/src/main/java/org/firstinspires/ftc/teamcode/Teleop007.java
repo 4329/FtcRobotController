@@ -31,6 +31,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
@@ -118,6 +119,12 @@ public class Teleop007 extends OpMode
         }
         if (gamepad2.left_stick_y < 0.0){
             robotController.ringBearerRaise();
+        }
+        if (gamepad2.right_trigger > 0.0){
+            robotController.nomNomRingTime();
+        } else {
+            robotController.noNomNoms();
+
         }
         telemetry.addData("Left Stick y",  gamepad2.left_stick_y);
         // Tank Mode uses one stick to control each wheel.
