@@ -47,12 +47,12 @@ public class RobotController {
     }
 
     public void secureWobble() {
-        robot.wobbleRelease.setPosition(0.77);
+        robot.wobbleRelease.setPosition(1);
 
     }
 
     public void releaseWobble() {
-        robot.wobbleRelease.setPosition(1);
+        robot.wobbleRelease.setPosition(0.77);
     }
 
 

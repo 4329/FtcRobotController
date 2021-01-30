@@ -67,6 +67,7 @@ import java.util.List;
 
 public abstract class AutonomousModeBase extends LinearOpMode {
 
+
     /* Declare OpMode members. */
     RobotHardware robot   = new RobotHardware();   //declaration
     RobotController robotController = new RobotController(robot);
@@ -79,6 +80,7 @@ public abstract class AutonomousModeBase extends LinearOpMode {
                                                       (WHEEL_DIAMETER_INCHES * 3.1415);
     static final double     DRIVE_SPEED             = 0.6;
     static final double     TURN_SPEED              = 0.5;
+    private static final double STRAFE_SPEED = 0.2;
     static final double     STRAFE_BONUS_EXTRA_K    = 1.09; // when we ask the robot to move 48 it only moves 44 (11:12)
 
     @Override
@@ -118,6 +120,7 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         moveToScan();
+        /*
         RingStack ringStack = scanRings();
             telemetry.addData("Ring_Stack", ringStack);
 
@@ -133,6 +136,8 @@ public abstract class AutonomousModeBase extends LinearOpMode {
             moveToZoneCharlie();
 
         }
+
+         */
     }
 
     protected void moveToZoneAlpha() {
@@ -183,7 +188,7 @@ public abstract class AutonomousModeBase extends LinearOpMode {
 
     protected void moveToScan(){
         encoderDrive(DRIVE_SPEED, 12, RobotDirection.BACKWARD, 2);
-        encoderDrive(DRIVE_SPEED, 12, getScanStrafeDirection(RobotDirection.STRAFE_RIGHT), 2);
+        encoderDrive(STRAFE_SPEED, 12, getScanStrafeDirection(RobotDirection.STRAFE_RIGHT), 5);
         sleep(250);
     }
 
@@ -307,10 +312,11 @@ public abstract class AutonomousModeBase extends LinearOpMode {
             robot.leftBackDrive.setPower(0);
             robot.rightBackDrive.setPower(0);
             // Turn off RUN_TO_POSITION
-            robot.leftFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.rightFrontDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.leftBackDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.rightBackDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.leftFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.rightFrontDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.leftBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.rightBackDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
             //  sleep(250);   // optional pause after each move
         }
     }
