@@ -120,7 +120,6 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         moveToScan();
-        /*
         RingStack ringStack = scanRings();
             telemetry.addData("Ring_Stack", ringStack);
 
@@ -137,7 +136,7 @@ public abstract class AutonomousModeBase extends LinearOpMode {
 
         }
 
-         */
+
     }
 
     protected void moveToZoneAlpha() {
@@ -188,7 +187,7 @@ public abstract class AutonomousModeBase extends LinearOpMode {
 
     protected void moveToScan(){
         encoderDrive(DRIVE_SPEED, 12, RobotDirection.BACKWARD, 2);
-        encoderDrive(STRAFE_SPEED, 12, getScanStrafeDirection(RobotDirection.STRAFE_RIGHT), 5);
+        encoderDrive(STRAFE_SPEED, 12, getScanStrafeDirection(RobotDirection.STRAFE_RIGHT), 2);
         sleep(250);
     }
 

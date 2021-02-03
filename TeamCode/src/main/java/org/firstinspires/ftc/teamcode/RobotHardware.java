@@ -19,6 +19,7 @@ public class RobotHardware {
     public DcMotor leftBackDrive = null;
     public DcMotor rightBackDrive = null;
     public DcMotor hungryHungryCaterpillar = null;
+    public DcMotor caterpillarSlider = null;
 
     public Servo ringBearer0 = null;
     public Servo ringBearer1 = null;
@@ -57,6 +58,7 @@ public class RobotHardware {
         ringBearer1 = hardwareMap.get(Servo.class, "ringBearer1");
         wobbleRelease = hardwareMap.get(Servo.class, "wobbleRelease");
         hungryHungryCaterpillar = hardwareMap.get(DcMotor.class, "hungry_hungry_caterpillar");
+        caterpillarSlider = hardwareMap.get(DcMotor.class, "caterpillar_slider");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
@@ -65,12 +67,14 @@ public class RobotHardware {
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
         rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
         hungryHungryCaterpillar.setDirection(DcMotor.Direction.FORWARD);
+        caterpillarSlider.setDirection(DcMotor.Direction.FORWARD);
         // Set all motors to zero power
         leftFrontDrive.setPower(0);
         rightFrontDrive.setPower(0);
         leftBackDrive.setPower(0);
         rightBackDrive.setPower(0);
         hungryHungryCaterpillar.setPower(0);
+        caterpillarSlider.setPower(0);
 //
 //        // Set all motors to run without encoders.
 //        // May want to use RUN_USING_ENCODERS if encoders are installed.

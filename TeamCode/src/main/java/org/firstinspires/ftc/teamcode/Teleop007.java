@@ -126,6 +126,15 @@ public class Teleop007 extends OpMode
             robotController.noNomNoms();
 
         }
+        if (gamepad2.right_stick_y > 0.3){
+            robotController.slideCaterpillarDown();
+        }
+        else if (gamepad2.right_stick_y < -0.3){
+            robotController.slideCaterpillarUp();
+        }
+        else {
+            robotController.slideCaterpillarStop();
+        }
         telemetry.addData("Left Stick y",  gamepad2.left_stick_y);
         // Tank Mode uses one stick to control each wheel.
         // - This requires no math, but it is hard to drive forward slowly and keep straight.

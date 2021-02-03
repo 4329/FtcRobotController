@@ -67,4 +67,16 @@ public class RobotController {
     public void noNomNoms() {
         robot.hungryHungryCaterpillar.setPower(0);
     }
+
+    public void slideCaterpillarDown() {
+        robot.caterpillarSlider.setPower(0.5);
+    }
+
+    public void slideCaterpillarUp() {
+        robot.caterpillarSlider.setPower(-0.5);
+    }
+
+    public void slideCaterpillarStop() {
+        robot.caterpillarSlider.setPower(0);
+    }
 }
