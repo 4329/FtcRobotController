@@ -145,11 +145,11 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         encoderDrive(DRIVE_SPEED, 28, getStrafeDirection(RobotDirection.STRAFE_RIGHT), 4);
         robotController.releaseWobble();
         sleep(1000);
-        robotController.ringBearerDown();
+        //robotController.ringBearerDown();
         encoderDrive(DRIVE_SPEED, 51.33, RobotDirection.BACKWARD, 5);
         encoderDrive(DRIVE_SPEED, 10, getStrafeDirection(RobotDirection.STRAFE_LEFT), 3.33);
         robotController.ringBearerUp();
-        sleep(1000);
+        sleep(3000);
         robotController.ringBearerDown();
         encoderDrive(DRIVE_SPEED, 53.67, RobotDirection.FORWARD, 5.75);
     }
@@ -160,11 +160,11 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         encoderDrive(DRIVE_SPEED, 4, getStrafeDirection(RobotDirection.STRAFE_RIGHT), 1);
         robotController.releaseWobble();
         sleep(1000);
-        robotController.ringBearerDown();
+        //robotController.ringBearerDown();
         encoderDrive(DRIVE_SPEED, 27.50, RobotDirection.BACKWARD, 3.50);
         encoderDrive(DRIVE_SPEED, 11, getStrafeDirection(RobotDirection.STRAFE_RIGHT), 5);
         robotController.ringBearerUp();
-        sleep(1000);
+        sleep(3000);
         robotController.ringBearerDown();
         encoderDrive(DRIVE_SPEED,  21, getStrafeDirection(RobotDirection.STRAFE_LEFT), 5);
         encoderDrive(DRIVE_SPEED, 51.34, RobotDirection.FORWARD, 5.75);
@@ -176,11 +176,11 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         encoderDrive(DRIVE_SPEED,28, getStrafeDirection(RobotDirection.STRAFE_RIGHT), 4);
         robotController.releaseWobble();
         sleep(1000);
-        robotController.ringBearerDown();
+        //robotController.ringBearerDown();
         encoderDrive(DRIVE_SPEED, 5.5, RobotDirection.BACKWARD, 1);
         encoderDrive(DRIVE_SPEED, 10, getStrafeDirection(RobotDirection.STRAFE_LEFT), 3.33);
         robotController.ringBearerUp();
-        sleep(1000);
+        sleep(3000);
         robotController.ringBearerDown();
         encoderDrive(DRIVE_SPEED, 53.67, RobotDirection.FORWARD, 5.75);
     }

@@ -21,9 +21,11 @@ public class RobotHardware {
     public DcMotor hungryHungryCaterpillar = null;
     public DcMotor caterpillarSlider = null;
 
+
     public Servo ringBearer0 = null;
     public Servo ringBearer1 = null;
     public Servo wobbleRelease = null;
+    public Servo wobbleSnatcher = null;
     private static final String VUFORIA_KEY =
         "AT65lYD/////AAABmYLSlMYJ50sZuYO3mRZFMtApeNGp82g4hf/Trb2fI6/FfDhf6CoeqAyeZLBQgpLF9rYRV4krMK5JW/TiqGulVw0fDMOfOQjc03Qs8YkFrIT6rWLRVlvS2NoZgDAGDHEEZvf/S1c34clJmw45b7uzcJYgVxdlRoSM7uU/u4ne8+aikzB4MWu4xybCUVsFl44lW/2acUNJmJ1XFjkspO/TP1M/s42NTOBNPeMA+6sy8wIbvtn3BRrQnklOnIGYSaRNC/Yl2UTuUCBzM5fPB2eRBS+e9hgJNORHm29YKfprz0dM6Ah0ubrrQdI2HLlGGUiqO6JnKtASw0SYNvdSKIZG4VU5fI7MTvjHenteZOeLbHl3";
 
@@ -59,6 +61,7 @@ public class RobotHardware {
         wobbleRelease = hardwareMap.get(Servo.class, "wobbleRelease");
         hungryHungryCaterpillar = hardwareMap.get(DcMotor.class, "hungry_hungry_caterpillar");
         caterpillarSlider = hardwareMap.get(DcMotor.class, "caterpillar_slider");
+        wobbleSnatcher = hardwareMap.get(Servo.class, "wobble_snatcher");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
@@ -84,6 +87,7 @@ public class RobotHardware {
         wobbleRelease.setDirection(Servo.Direction.REVERSE);
         robotController.ringBearerDown();
         robotController.secureWobble();
+        robotController.wobbleSnatcherClose();
         initVuforia();
         initTfod();
 

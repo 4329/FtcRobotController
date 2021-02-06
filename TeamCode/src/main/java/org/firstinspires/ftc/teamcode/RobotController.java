@@ -4,18 +4,21 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 
 import java.util.List;
 
+import static java.lang.Thread.sleep;
+
 public class RobotController {
     private final RobotHardware robot;
 
     double position0 = 0;
     double position1 = 0;
+    boolean wobbleSnatcherClosed = false;
 
     public RobotController(RobotHardware poop) {
         this.robot = poop;
     }
     public void ringBearerUp() {
-        position0 = 0.45;
-        position1 = 0.55;
+        position0 = 0.95;
+        position1 = 0.05;
         moveRingBearer();
 
     }
@@ -31,8 +34,8 @@ public class RobotController {
         moveRingBearer();
     }
     public void ringBearerHalfway() {
-        position0 = 0.1;
-        position1 = 0.9;
+        position0 = 0.15;
+        position1 = 0.85;
         moveRingBearer();
     }
     public void ringBearerLower() {
@@ -47,12 +50,13 @@ public class RobotController {
     }
 
     public void secureWobble() {
-        robot.wobbleRelease.setPosition(1);
-
+        //robot.wobbleRelease.setPosition(1);
+        ringBearerDown();
     }
 
     public void releaseWobble() {
-        robot.wobbleRelease.setPosition(0.77);
+        //robot.wobbleRelease.setPosition(0.77);
+        ringBearerHalfway();
     }
 
 
@@ -78,5 +82,31 @@ public class RobotController {
 
     public void slideCaterpillarStop() {
         robot.caterpillarSlider.setPower(0);
+    }
+
+    public void wobbleSnatcherToggle() {
+        sleep (200);
+        if (wobbleSnatcherClosed == true) {
+            wobbleSnatcherOpen();
+        }
+        else {
+            wobbleSnatcherClose ();
+        }
+    }
+
+    public void wobbleSnatcherClose() {
+        robot.wobbleSnatcher.setPosition(0);
+        wobbleSnatcherClosed = true;
+    }
+    public void wobbleSnatcherOpen() {
+        robot.wobbleSnatcher.setPosition(0.7);
+        wobbleSnatcherClosed = false;
+    }
+    public final void sleep(long milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 }
