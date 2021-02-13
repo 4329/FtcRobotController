@@ -99,7 +99,7 @@ flipperClawRight = hardwareMap.get(Servo.class,"flipperClawRight");
         robotController.secureWobble();
         robotController.wobbleSnatcherClose();
         robotController.flipperClawsClose();
-        robotController.flipperRetract();
+        robotController.flipperHalfway();
         initVuforia();
         initTfod();
 

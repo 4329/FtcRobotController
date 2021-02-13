@@ -87,13 +87,13 @@ public class RobotController {
     }
 
     public void wobbleSnatcherToggle() {
-        sleep (200);
         if (wobbleSnatcherClosed == true) {
             wobbleSnatcherOpen();
         }
         else {
             wobbleSnatcherClose ();
         }
+        sleep (200);
     }
 
     public void wobbleSnatcherClose() {
@@ -131,28 +131,33 @@ public class RobotController {
     }
 
     public void flipperDeploy() {
-        robot.flipperFlipLeft.setPosition(.45);
-        robot.flipperFlipRight.setPosition(.55);
+        robot.flipperFlipLeft.setPosition(.4);
+        robot.flipperFlipRight.setPosition(.6);
         flipperDeployed = true;
     }
 
     public void toggleFlipperClaw() {
-        sleep(200);
         if (flipperClawsClosed) {
             flipperClawsOpen();
         }
         else {
             flipperClawsClose();
         }
+        sleep (200);
     }
 
     public void toggleFlipper() {
-        sleep (200);
         if (flipperDeployed) {
             flipperRetract();
         }
         else {
             flipperDeploy();
         }
+        sleep (200);
+    }
+    public void flipperHalfway () {
+        flipperDeployed = false;
+        robot.flipperFlipLeft.setPosition(.85);
+        robot.flipperFlipRight.setPosition(.15);
     }
 }
