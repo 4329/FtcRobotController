@@ -138,8 +138,14 @@ public class Teleop007 extends OpMode
         else {
             robotController.slideCaterpillarStop();
         }
-        if (gamepad2.left_bumper) {
+        if (gamepad2.dpad_down) {
             robotController.wobbleSnatcherToggle();
+        }
+        if (gamepad2.left_bumper) {
+            robotController.toggleFlipper();
+        }
+        if (gamepad2.right_bumper) {
+            robotController.toggleFlipperClaw();
         }
         telemetry.addData("Left Stick y",  gamepad2.left_stick_y);
         // Tank Mode uses one stick to control each wheel.

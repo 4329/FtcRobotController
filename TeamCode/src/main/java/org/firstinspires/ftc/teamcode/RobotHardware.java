@@ -26,6 +26,13 @@ public class RobotHardware {
     public Servo ringBearer1 = null;
     public Servo wobbleRelease = null;
     public Servo wobbleSnatcher = null;
+public Servo flipperFlipLeft= null;
+public Servo flipperFlipRight= null;
+    public Servo flipperClawLeft= null;
+public Servo flipperClawRight= null;
+
+
+
     private static final String VUFORIA_KEY =
         "AT65lYD/////AAABmYLSlMYJ50sZuYO3mRZFMtApeNGp82g4hf/Trb2fI6/FfDhf6CoeqAyeZLBQgpLF9rYRV4krMK5JW/TiqGulVw0fDMOfOQjc03Qs8YkFrIT6rWLRVlvS2NoZgDAGDHEEZvf/S1c34clJmw45b7uzcJYgVxdlRoSM7uU/u4ne8+aikzB4MWu4xybCUVsFl44lW/2acUNJmJ1XFjkspO/TP1M/s42NTOBNPeMA+6sy8wIbvtn3BRrQnklOnIGYSaRNC/Yl2UTuUCBzM5fPB2eRBS+e9hgJNORHm29YKfprz0dM6Ah0ubrrQdI2HLlGGUiqO6JnKtASw0SYNvdSKIZG4VU5fI7MTvjHenteZOeLbHl3";
 
@@ -58,11 +65,14 @@ public class RobotHardware {
         rightBackDrive = hardwareMap.get(DcMotor.class, "right_back_drive");
         ringBearer0 = hardwareMap.get(Servo.class, "ringBearer0");
         ringBearer1 = hardwareMap.get(Servo.class, "ringBearer1");
-        wobbleRelease = hardwareMap.get(Servo.class, "wobbleRelease");
+        //wobbleRelease = hardwareMap.get(Servo.class, "wobbleRelease");
         hungryHungryCaterpillar = hardwareMap.get(DcMotor.class, "hungry_hungry_caterpillar");
         caterpillarSlider = hardwareMap.get(DcMotor.class, "caterpillar_slider");
         wobbleSnatcher = hardwareMap.get(Servo.class, "wobble_snatcher");
-
+flipperFlipRight = hardwareMap.get(Servo.class,"flipperFlipRight");
+flipperFlipLeft = hardwareMap.get(Servo.class, "flipperFlipLeft");
+flipperClawLeft= hardwareMap.get (Servo.class, "flipperClawLeft");
+flipperClawRight = hardwareMap.get(Servo.class,"flipperClawRight");
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
         leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -84,10 +94,12 @@ public class RobotHardware {
 //        leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 //        rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 //        leftArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        wobbleRelease.setDirection(Servo.Direction.REVERSE);
+        //wobbleRelease.setDirection(Servo.Direction.REVERSE);
         robotController.ringBearerDown();
         robotController.secureWobble();
         robotController.wobbleSnatcherClose();
+        robotController.flipperClawsClose();
+        robotController.flipperRetract();
         initVuforia();
         initTfod();
 
