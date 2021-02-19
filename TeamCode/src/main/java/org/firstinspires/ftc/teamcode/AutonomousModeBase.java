@@ -78,7 +78,7 @@ public abstract class AutonomousModeBase extends LinearOpMode {
     static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
                                                       (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double     DRIVE_SPEED             = 0.6;
+    static final double     DRIVE_SPEED             = 1.0;
     static final double     TURN_SPEED              = 0.5;
     private static final double STRAFE_SPEED = 0.2;
     static final double     STRAFE_BONUS_EXTRA_K    = 1.09; // when we ask the robot to move 48 it only moves 44 (11:12)
@@ -144,14 +144,15 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         encoderDrive(DRIVE_SPEED, 60, RobotDirection.BACKWARD, 5.75);
         encoderDrive(DRIVE_SPEED, 28, getStrafeDirection(RobotDirection.STRAFE_RIGHT), 4);
         robotController.releaseWobble();
-        sleep(1000);
+        sleep(750);
         //robotController.ringBearerDown();
         encoderDrive(DRIVE_SPEED, 51.33, RobotDirection.BACKWARD, 5);
         encoderDrive(DRIVE_SPEED, 10, getStrafeDirection(RobotDirection.STRAFE_LEFT), 3.33);
         robotController.ringBearerUp();
         sleep(3000);
         robotController.ringBearerDown();
-        encoderDrive(DRIVE_SPEED, 53.67, RobotDirection.FORWARD, 5.75);
+        encoderDrive(DRIVE_SPEED,  21, getStrafeDirection(RobotDirection.STRAFE_LEFT), 5);
+        encoderDrive(DRIVE_SPEED, 108, RobotDirection.FORWARD, 5.75);
     }
 
     protected void moveToZoneBravo() {
@@ -162,12 +163,12 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         sleep(1000);
         //robotController.ringBearerDown();
         encoderDrive(DRIVE_SPEED, 27.50, RobotDirection.BACKWARD, 3.50);
-        encoderDrive(DRIVE_SPEED, 11, getStrafeDirection(RobotDirection.STRAFE_RIGHT), 5);
+        encoderDrive(DRIVE_SPEED, 19, getStrafeDirection(RobotDirection.STRAFE_RIGHT), 5);
         robotController.ringBearerUp();
         sleep(3000);
         robotController.ringBearerDown();
-        encoderDrive(DRIVE_SPEED,  21, getStrafeDirection(RobotDirection.STRAFE_LEFT), 5);
-        encoderDrive(DRIVE_SPEED, 51.34, RobotDirection.FORWARD, 5.75);
+        encoderDrive(DRIVE_SPEED,  23, getStrafeDirection(RobotDirection.STRAFE_LEFT), 5);
+        encoderDrive(DRIVE_SPEED, 108, RobotDirection.FORWARD, 5.75);
     }
 
     protected void moveToZoneCharlie() {
@@ -182,7 +183,8 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         robotController.ringBearerUp();
         sleep(3000);
         robotController.ringBearerDown();
-        encoderDrive(DRIVE_SPEED, 53.67, RobotDirection.FORWARD, 5.75);
+        encoderDrive(DRIVE_SPEED,  21, getStrafeDirection(RobotDirection.STRAFE_LEFT), 5);
+        encoderDrive(DRIVE_SPEED, 108, RobotDirection.FORWARD, 5.75);
     }
 
     protected void moveToScan(){
