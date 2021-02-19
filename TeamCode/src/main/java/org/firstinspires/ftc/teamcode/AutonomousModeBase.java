@@ -137,6 +137,12 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         }
 
 
+        turnAndGrabWobble();
+
+    }
+
+    private void turnAndGrabWobble() {
+        encoderDrive(.5,40,RobotDirection.TURN_RIGHT,2);
     }
 
     protected void moveToZoneAlpha() {
@@ -248,10 +254,16 @@ public abstract class AutonomousModeBase extends LinearOpMode {
                 newLeftFrontTarget = robot.leftFrontDrive.getCurrentPosition()+(distance * -1);
             }
             else if (direction.equals(RobotDirection.TURN_LEFT)) {
-                newRightFrontTarget = robot.rightFrontDrive.getCurrentPosition()+(distance);
-                newLeftBackTarget = robot.leftBackDrive.getCurrentPosition()+(distance * -1);
-                newRightBackTarget = robot.rightBackDrive.getCurrentPosition()+(distance);
-                newLeftFrontTarget = robot.leftFrontDrive.getCurrentPosition()+(distance * -1);
+                    newRightFrontTarget = robot.rightFrontDrive.getCurrentPosition()+(distance);
+                    newLeftBackTarget = robot.leftBackDrive.getCurrentPosition()+(distance * -1);
+                    newRightBackTarget = robot.rightBackDrive.getCurrentPosition()+(distance);
+                    newLeftFrontTarget = robot.leftFrontDrive.getCurrentPosition()+(distance * -1);
+            }
+            else if (direction.equals(RobotDirection.TURN_RIGHT)) {
+                newRightFrontTarget = robot.rightFrontDrive.getCurrentPosition() + (distance * -1);
+                newLeftBackTarget = robot.leftBackDrive.getCurrentPosition() + (distance);
+                newRightBackTarget = robot.rightBackDrive.getCurrentPosition() + (distance * -1);
+                newLeftFrontTarget = robot.leftFrontDrive.getCurrentPosition() + (distance);
             }
             else if (direction.equals(RobotDirection.FORWARD_RIGHT)) {
                 newRightFrontTarget = robot.rightFrontDrive.getCurrentPosition();
