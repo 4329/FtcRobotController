@@ -14,6 +14,7 @@ public class RobotController {
     boolean wobbleSnatcherClosed = false;
     boolean flipperDeployed = false;
     boolean flipperClawsClosed = false;
+    boolean clawsOnMat = false;
 
     public RobotController(RobotHardware poop) {
         this.robot = poop;
@@ -134,6 +135,13 @@ public class RobotController {
         robot.flipperFlipLeft.setPosition(.4);
         robot.flipperFlipRight.setPosition(.6);
         flipperDeployed = true;
+        clawsOnMat = true;
+    }
+    public void flipperFloat() {
+        robot.flipperFlipLeft.setPosition(.44);
+        robot.flipperFlipRight.setPosition(.56);
+        flipperDeployed = true;
+        clawsOnMat = false;
     }
 
     public void toggleFlipperClaw() {
@@ -141,7 +149,13 @@ public class RobotController {
             flipperClawsOpen();
         }
         else {
+            if (!clawsOnMat) {
+                flipperDeploy();
+                sleep(35);
+            }
             flipperClawsClose();
+            sleep(70);
+            flipperFloat();
         }
         sleep (200);
     }
@@ -151,7 +165,8 @@ public class RobotController {
             flipperRetract();
         }
         else {
-            flipperDeploy();
+            flipperFloat();
+            flipperClawsOpen();
         }
         sleep (200);
     }
