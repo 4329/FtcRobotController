@@ -175,4 +175,11 @@ public class RobotController {
         robot.flipperFlipLeft.setPosition(.85);
         robot.flipperFlipRight.setPosition(.15);
     }
+
+    public void endgameWobbleSnatcher() {
+        position0 = 0.85;
+        position1 = 0.15;
+        moveRingBearer();
+        wobbleSnatcherOpen();
+    }
 }

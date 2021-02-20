@@ -102,17 +102,12 @@ public class Teleop007 extends OpMode
         // POV Mode uses left stick to go forward, and right stick to turn.
         // - This uses basic math to combine motions and is easier to drive straight.
         EngineValues engineValues = determineEnginePower(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x);
-        if (gamepad2.a) {
-            robotController.ringBearerUp();
-        }
-        if (gamepad2.b) {
-                robotController.ringBearerDown();
-        }
+
         if (gamepad2.y) {
                 robotController.releaseWobble();
         }
         if (gamepad2.dpad_up) {
-                robotController.ringBearerHalfway();
+                robotController.endgameWobbleSnatcher();
         }
         if (gamepad2.x) {
                 robotController.secureWobble();
