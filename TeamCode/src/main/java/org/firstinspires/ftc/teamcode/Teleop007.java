@@ -104,13 +104,13 @@ public class Teleop007 extends OpMode
         EngineValues engineValues = determineEnginePower(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x);
 
         if (gamepad2.y) {
-                robotController.releaseWobble();
+            robotController.releaseWobble();
         }
         if (gamepad2.dpad_up) {
-                robotController.endgameWobbleSnatcher();
+            robotController.endgameWobbleSnatcher();
         }
         if (gamepad2.x) {
-                robotController.secureWobble();
+            robotController.secureWobble();
         }
         if (gamepad2.left_stick_y > 0.0){
             robotController.ringBearerLower();
