@@ -122,6 +122,7 @@ public abstract class AutonomousModeBase extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
+        /*
         moveToScan();
         RingStack ringStack = scanRings();
             telemetry.addData("Ring_Stack", ringStack);
@@ -141,7 +142,8 @@ public abstract class AutonomousModeBase extends LinearOpMode {
 
 
         //turnAndGrabWobble();
-
+*/
+        turnToAngle(90);
     }
 
     private void turnAndGrabWobble() {
@@ -363,7 +365,14 @@ public abstract class AutonomousModeBase extends LinearOpMode {
                 robot.rightFrontDrive.setPower(power * -1);
                 robot.rightBackDrive.setPower(power * -1);
             }
+            heading = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX,  AngleUnit.DEGREES).firstAngle;
+            difference = degrees - heading;
+            idle();
         }
+        robot.leftFrontDrive.setPower(0);
+        robot.leftBackDrive.setPower(0);
+        robot.rightFrontDrive.setPower(0);
+        robot.rightBackDrive.setPower(0);
     }
 
     protected double calculateTurnPower(double difference) {
@@ -372,16 +381,16 @@ public abstract class AutonomousModeBase extends LinearOpMode {
             return 1.0;
         }
         else if (absoluteDifference > 35){
-            return .8;
-        }
-        else if (absoluteDifference > 25){
             return .7;
         }
+        else if (absoluteDifference > 25){
+            return .5;
+        }
         else if (absoluteDifference > 15){
-            return .6;
+            return .4;
         }
         else {
-            return .3;
+            return .15;
         }
     }
 
