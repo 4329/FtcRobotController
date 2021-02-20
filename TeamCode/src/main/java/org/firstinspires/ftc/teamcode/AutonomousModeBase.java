@@ -143,7 +143,7 @@ public abstract class AutonomousModeBase extends LinearOpMode {
 
         //turnAndGrabWobble();
 */
-        turnToAngle(90);
+        turnToAngle(-90);
     }
 
     private void turnAndGrabWobble() {
@@ -349,7 +349,7 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         double heading = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX,  AngleUnit.DEGREES).firstAngle;
         double difference = degrees - heading;
 
-        while (opModeIsActive() && difference > 0){
+        while (opModeIsActive() && Math.abs(difference) > 0){
             double power = calculateTurnPower (difference);
             if (degrees > 0){
                 //left turn
