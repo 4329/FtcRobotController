@@ -34,6 +34,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 
 import java.util.List;
@@ -158,8 +161,8 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         sleep(3000);
         robotController.ringBearerDown();
         encoderDrive(DRIVE_SPEED,  21, getStrafeDirection(RobotDirection.STRAFE_LEFT), 5);
-       // encoderDrive(DRIVE_SPEED, 108, RobotDirection.FORWARD, 5.75);     This is for grabbing the second wobble.
-        encoderDrive(DRIVE_SPEED, 55, RobotDirection.FORWARD, 5.75);
+        encoderDrive(DRIVE_SPEED, 108, RobotDirection.FORWARD, 5.75);
+
     }
 
     protected void moveToZoneBravo() {
@@ -175,8 +178,8 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         sleep(3000);
         robotController.ringBearerDown();
         encoderDrive(DRIVE_SPEED,  23, getStrafeDirection(RobotDirection.STRAFE_LEFT), 5);
-        //encoderDrive(DRIVE_SPEED, 108, RobotDirection.FORWARD, 5.75);
-        encoderDrive(DRIVE_SPEED, 55, RobotDirection.FORWARD, 5.75);
+        encoderDrive(DRIVE_SPEED, 108, RobotDirection.FORWARD, 5.75);
+
     }
 
     protected void moveToZoneCharlie() {
@@ -192,8 +195,8 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         sleep(3000);
         robotController.ringBearerDown();
         encoderDrive(DRIVE_SPEED,  21, getStrafeDirection(RobotDirection.STRAFE_LEFT), 5);
-        //encoderDrive(DRIVE_SPEED, 108, RobotDirection.FORWARD, 5.75);
-        encoderDrive(DRIVE_SPEED, 55, RobotDirection.FORWARD, 5.75);
+        encoderDrive(DRIVE_SPEED, 108, RobotDirection.FORWARD, 5.75);
+
     }
 
     protected void moveToScan(){
@@ -336,6 +339,52 @@ public abstract class AutonomousModeBase extends LinearOpMode {
             //  sleep(250);   // optional pause after each move
         }
     }
+    protected void turnToAngle (double degrees) {
+        robot.leftFrontDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.rightFrontDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.leftBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.rightBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        double heading = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX,  AngleUnit.DEGREES).firstAngle;
+        double difference = degrees - heading;
+
+        while (opModeIsActive() && difference > 0){
+            double power = calculateTurnPower (difference);
+            if (degrees > 0){
+                //left turn
+                robot.leftFrontDrive.setPower(power * -1);
+                robot.leftBackDrive.setPower(power * -1);
+                robot.rightFrontDrive.setPower(power);
+                robot.rightBackDrive.setPower(power);
+            }
+            else{
+                //right turn
+                robot.leftFrontDrive.setPower(power);
+                robot.leftBackDrive.setPower(power);
+                robot.rightFrontDrive.setPower(power * -1);
+                robot.rightBackDrive.setPower(power * -1);
+            }
+        }
+    }
+
+    protected double calculateTurnPower(double difference) {
+        double absoluteDifference = Math.abs (difference);
+        if (absoluteDifference > 45){
+            return 1.0;
+        }
+        else if (absoluteDifference > 35){
+            return .8;
+        }
+        else if (absoluteDifference > 25){
+            return .7;
+        }
+        else if (absoluteDifference > 15){
+            return .6;
+        }
+        else {
+            return .3;
+        }
+    }
+
     protected abstract RobotDirection getStrafeDirection (RobotDirection direction);
     protected abstract RobotDirection getScanStrafeDirection(RobotDirection direction);
 

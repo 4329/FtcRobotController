@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -30,6 +31,8 @@ public Servo flipperFlipLeft= null;
 public Servo flipperFlipRight= null;
     public Servo flipperClawLeft= null;
 public Servo flipperClawRight= null;
+    public BNO055IMU imu;
+
 public Servo ringbouncer= null;
 
 
@@ -74,6 +77,14 @@ flipperFlipRight = hardwareMap.get(Servo.class,"flipperFlipRight");
 flipperFlipLeft = hardwareMap.get(Servo.class, "flipperFlipLeft");
 flipperClawLeft= hardwareMap.get (Servo.class, "flipperClawLeft");
 flipperClawRight = hardwareMap.get(Servo.class,"flipperClawRight");
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.mode = BNO055IMU.SensorMode.IMU;
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.loggingEnabled = false;
+
+        imu = hardwareMap.get(BNO055IMU.class, "imu");
+        imu.initialize(parameters);
 ringbouncer= hardwareMap.get(Servo.class,"ringbouncer");
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
