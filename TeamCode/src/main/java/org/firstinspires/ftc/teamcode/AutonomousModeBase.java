@@ -137,7 +137,7 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         }
 
 
-        turnAndGrabWobble();
+        //turnAndGrabWobble();
 
     }
 
@@ -158,7 +158,8 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         sleep(3000);
         robotController.ringBearerDown();
         encoderDrive(DRIVE_SPEED,  21, getStrafeDirection(RobotDirection.STRAFE_LEFT), 5);
-        encoderDrive(DRIVE_SPEED, 108, RobotDirection.FORWARD, 5.75);
+       // encoderDrive(DRIVE_SPEED, 108, RobotDirection.FORWARD, 5.75);     This is for grabbing the second wobble.
+        encoderDrive(DRIVE_SPEED, 55, RobotDirection.FORWARD, 5.75);
     }
 
     protected void moveToZoneBravo() {
@@ -174,7 +175,8 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         sleep(3000);
         robotController.ringBearerDown();
         encoderDrive(DRIVE_SPEED,  23, getStrafeDirection(RobotDirection.STRAFE_LEFT), 5);
-        encoderDrive(DRIVE_SPEED, 108, RobotDirection.FORWARD, 5.75);
+        //encoderDrive(DRIVE_SPEED, 108, RobotDirection.FORWARD, 5.75);
+        encoderDrive(DRIVE_SPEED, 55, RobotDirection.FORWARD, 5.75);
     }
 
     protected void moveToZoneCharlie() {
@@ -190,7 +192,8 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         sleep(3000);
         robotController.ringBearerDown();
         encoderDrive(DRIVE_SPEED,  21, getStrafeDirection(RobotDirection.STRAFE_LEFT), 5);
-        encoderDrive(DRIVE_SPEED, 108, RobotDirection.FORWARD, 5.75);
+        //encoderDrive(DRIVE_SPEED, 108, RobotDirection.FORWARD, 5.75);
+        encoderDrive(DRIVE_SPEED, 55, RobotDirection.FORWARD, 5.75);
     }
 
     protected void moveToScan(){
