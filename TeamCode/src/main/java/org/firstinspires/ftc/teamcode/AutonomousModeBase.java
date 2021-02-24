@@ -116,13 +116,15 @@ public abstract class AutonomousModeBase extends LinearOpMode {
                           robot.leftBackDrive.getCurrentPosition(),
                           robot.rightBackDrive.getCurrentPosition());
         telemetry.update();
-
+        while (!isStopRequested() && !robot.imu.isGyroCalibrated()){
+            sleep(50);
+            idle();
+        }
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        /*
         moveToScan();
         RingStack ringStack = scanRings();
             telemetry.addData("Ring_Stack", ringStack);
@@ -141,13 +143,38 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         }
 
 
-        //turnAndGrabWobble();
-*/
-        turnToAngle(-90);
+        turnAndGrabWobble(ringStack);
     }
 
-    private void turnAndGrabWobble() {
-        encoderDrive(.5,40,RobotDirection.TURN_RIGHT,2);
+    private void turnAndGrabWobble(RingStack ringStack){
+        turnToAngle(-90);
+        robotController.flipperFloat();
+        robotController.flipperClawsOpen();
+        encoderDrive(DRIVE_SPEED,24,RobotDirection.FORWARD,3);
+        robotController.toggleFlipperClaw();
+        turnToAngle(0);
+        if(ringStack.equals(RingStack.NONE)){
+            encoderDrive(DRIVE_SPEED, 59, RobotDirection.FORWARD,3);
+            turnToAngle(90);
+            robotController.flipperClawsOpen();
+            robotController.flipperRetract();
+        }
+        else if(ringStack. equals(RingStack.ONE)){
+            encoderDrive(DRIVE_SPEED, 82, RobotDirection.FORWARD,4);
+            turnToAngle(-90);
+            robotController.flipperClawsOpen();
+            robotController.flipperRetract();
+            turnToAngle(180);
+            encoderDrive(DRIVE_SPEED,24,RobotDirection.BACKWARD,2);
+        }
+        else if(ringStack. equals(RingStack.FOUR)) {
+            encoderDrive(DRIVE_SPEED, 106, RobotDirection.FORWARD, 5);
+            turnToAngle(90);
+            robotController.flipperClawsOpen();
+            robotController.flipperRetract();
+            turnToAngle(180);
+            encoderDrive(DRIVE_SPEED, 48, RobotDirection.BACKWARD, 3);
+        }
     }
 
     protected void moveToZoneAlpha() {
@@ -347,9 +374,9 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         robot.leftBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.rightBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         double heading = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX,  AngleUnit.DEGREES).firstAngle;
-        double difference = degrees - heading;
+        double difference = Math.abs(degrees - heading);
 
-        while (opModeIsActive() && Math.abs(difference) > 0){
+        while (opModeIsActive() && difference > 0){
             double power = calculateTurnPower (difference);
             if (degrees > 0){
                 //left turn
@@ -366,7 +393,7 @@ public abstract class AutonomousModeBase extends LinearOpMode {
                 robot.rightBackDrive.setPower(power * -1);
             }
             heading = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX,  AngleUnit.DEGREES).firstAngle;
-            difference = degrees - heading;
+            difference = Math.abs(degrees - heading);
             idle();
         }
         robot.leftFrontDrive.setPower(0);
