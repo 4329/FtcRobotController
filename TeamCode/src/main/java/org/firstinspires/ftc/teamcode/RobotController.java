@@ -183,6 +183,11 @@ public class RobotController {
         moveRingBearer();
         wobbleSnatcherOpen();
     }
+    public void wobbleDrive() {
+        position0 = 0.75;
+        position1 = 0.25;
+        moveRingBearer();
+    }
 
     public void ringbouncerDown() {
         robot.ringbouncer.setPosition(1);
