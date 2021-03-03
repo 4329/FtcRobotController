@@ -29,7 +29,6 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -146,37 +145,34 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         turnAndGrabWobble(ringStack);
     }
 
-    private void turnAndGrabWobble(RingStack ringStack){
+    private void turnAndGrabWobble(RingStack ringStack) {
         turnToAngle(90);
         robotController.endgameWobbleSnatcher();
-        encoderDrive(DRIVE_SPEED,20,RobotDirection.BACKWARD,3);
+        encoderDrive(DRIVE_SPEED, 20, RobotDirection.BACKWARD, 3);
         robotController.wobbleSnatcherClose();
         sleep(1000);
         robotController.wobbleDrive();
-        if(ringStack.equals(RingStack.FOUR)){
-            turnToAngle(-5);
-        }
-        else {
+        if (ringStack.equals(RingStack.FOUR)) {
+            turnToAngle(5);
+        } else {
             turnToAngle(0);
         }
-        if(ringStack.equals(RingStack.NONE)){
-            encoderDrive(DRIVE_SPEED, 59, RobotDirection.BACKWARD,3);
+        if (ringStack.equals(RingStack.NONE)) {
+            encoderDrive(DRIVE_SPEED, 59, RobotDirection.BACKWARD, 3);
             turnToAngle(90);
             robotController.endgameWobbleSnatcher();
-            sleep(250);
+            encoderDrive(DRIVE_SPEED, 4, RobotDirection.BACKWARD, 1);
             robotController.ringBearerHalfway();
             sleep(50);
             turnToAngle(-179);
-        }
-        else if(ringStack. equals(RingStack.ONE)){
-            encoderDrive(DRIVE_SPEED, 59, RobotDirection.BACKWARD,4);
+        } else if (ringStack.equals(RingStack.ONE)) {
+            encoderDrive(DRIVE_SPEED, 59, RobotDirection.BACKWARD, 4);
             robotController.endgameWobbleSnatcher();
             sleep(250);
             robotController.ringBearerHalfway();
             sleep(50);
             turnToAngle(-179);
-        }
-        else if(ringStack. equals(RingStack.FOUR)) {
+        } else if (ringStack.equals(RingStack.FOUR)) {
             encoderDrive(DRIVE_SPEED, 106, RobotDirection.BACKWARD, 5);
             //turnToAngle(90);
             robotController.endgameWobbleSnatcher();
@@ -186,6 +182,7 @@ public abstract class AutonomousModeBase extends LinearOpMode {
             encoderDrive(DRIVE_SPEED, 48, RobotDirection.BACKWARD, 3);
             turnToAngle(179);
         }
+        robotController.toggleFlipper();
     }
 
     protected void moveToZoneAlpha() {
@@ -239,7 +236,7 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         sleep(1000);
         robotController.ringBearerDown();
         sleep(500);
-        encoderDrive(DRIVE_SPEED,  21, getStrafeDirection(RobotDirection.STRAFE_LEFT), 5);
+        encoderDrive(DRIVE_SPEED,  25, getStrafeDirection(RobotDirection.STRAFE_LEFT), 5);
         turnToAngle(0);
         encoderDrive(DRIVE_SPEED, 109, RobotDirection.FORWARD, 5.75);
 
@@ -392,8 +389,14 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         robot.rightBackDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         double heading = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX,  AngleUnit.DEGREES).firstAngle;
         double difference = Math.abs(degrees - heading);
-
-        while (opModeIsActive() && difference > 0.75){
+        RobotDirection direction;
+        if(degrees-heading > 0){
+            direction= RobotDirection.TURN_RIGHT;
+        }
+        else{
+            direction= RobotDirection.TURN_LEFT;
+        }
+        while (opModeIsActive() && shouldKeepTurning(degrees, heading, direction)){
             double power = calculateTurnPower (difference);
             if (degrees > 0){
                 //left turn
@@ -439,6 +442,30 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         else {
             return .15;
         }
+    }
+    protected boolean shouldKeepTurning(double degrees, double heading, RobotDirection direction){
+          double difference=Math.abs(degrees-heading);
+          if(difference < 0.75){
+              return false;
+          }
+          if(degrees > 0){
+              //turn left
+              if(heading > degrees) {
+                  return false;
+              }
+              else{
+                  return true;
+              }
+          }
+          else{
+              if(heading < degrees) {
+                  return false;
+              }
+              else{
+                  return true;
+              }
+
+          }
     }
 
     protected abstract RobotDirection getStrafeDirection (RobotDirection direction);
