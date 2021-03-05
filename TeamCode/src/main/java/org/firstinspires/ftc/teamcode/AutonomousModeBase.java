@@ -31,6 +31,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.robot.Robot;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -153,7 +154,8 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         sleep(1000);
         robotController.wobbleDrive();
         if (ringStack.equals(RingStack.FOUR)) {
-            turnToAngle(5);
+            turnToAngle(0);
+            encoderDrive(DRIVE_SPEED, 18, RobotDirection.STRAFE_RIGHT, 2);
         } else {
             turnToAngle(0);
         }
@@ -391,14 +393,14 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         double difference = Math.abs(degrees - heading);
         RobotDirection direction;
         if(degrees-heading > 0){
-            direction= RobotDirection.TURN_RIGHT;
+            direction= RobotDirection.TURN_LEFT;
         }
         else{
-            direction= RobotDirection.TURN_LEFT;
+            direction= RobotDirection.TURN_RIGHT;
         }
         while (opModeIsActive() && shouldKeepTurning(degrees, heading, direction)){
             double power = calculateTurnPower (difference);
-            if (degrees > 0){
+            if (direction.equals(RobotDirection.TURN_LEFT)){
                 //left turn
                 robot.leftFrontDrive.setPower(power * -1);
                 robot.leftBackDrive.setPower(power * -1);
@@ -448,7 +450,7 @@ public abstract class AutonomousModeBase extends LinearOpMode {
           if(difference < 0.75){
               return false;
           }
-          if(degrees > 0){
+          if(direction.equals(RobotDirection.TURN_LEFT)){
               //turn left
               if(heading > degrees) {
                   return false;
