@@ -185,11 +185,11 @@ public class RobotController {
     }
 
     public void ringbouncerDown() {
-        robot.ringbouncer.setPosition(0);
+        robot.ringbouncer.setPosition(1);
         ringBouncerDown= true;
     }
     public void ringbouncerUp() {
-        robot.ringbouncer.setPosition(.25);
+        robot.ringbouncer.setPosition(.75);
         ringBouncerDown= false;
     }
 
@@ -200,7 +200,7 @@ public class RobotController {
             }
         }
         else {
-            if (!flipperDeployed) {
+            if (flipperDeployed) {
                 ringbouncerDown();
             }
         }
