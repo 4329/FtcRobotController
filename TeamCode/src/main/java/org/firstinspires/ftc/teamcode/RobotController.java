@@ -15,6 +15,7 @@ public class RobotController {
     boolean flipperDeployed = false;
     boolean flipperClawsClosed = false;
     boolean clawsOnMat = false;
+    boolean ringBouncerDown= false;
 
     public RobotController(RobotHardware poop) {
         this.robot = poop;
@@ -181,5 +182,28 @@ public class RobotController {
         position1 = 0.15;
         moveRingBearer();
         wobbleSnatcherOpen();
+    }
+
+    public void ringbouncerDown() {
+        robot.ringbouncer.setPosition(0);
+        ringBouncerDown= true;
+    }
+    public void ringbouncerUp() {
+        robot.ringbouncer.setPosition(.25);
+        ringBouncerDown= false;
+    }
+
+    public void toggleRingBouncer() {
+        if (ringBouncerDown) {
+            if (flipperDeployed) {
+                ringbouncerUp();
+            }
+        }
+        else {
+            if (!flipperDeployed) {
+                ringbouncerDown();
+            }
+        }
+        sleep(200);
     }
 }

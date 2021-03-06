@@ -30,6 +30,7 @@ public Servo flipperFlipLeft= null;
 public Servo flipperFlipRight= null;
     public Servo flipperClawLeft= null;
 public Servo flipperClawRight= null;
+public Servo ringbouncer= null;
 
 
 
@@ -73,6 +74,7 @@ flipperFlipRight = hardwareMap.get(Servo.class,"flipperFlipRight");
 flipperFlipLeft = hardwareMap.get(Servo.class, "flipperFlipLeft");
 flipperClawLeft= hardwareMap.get (Servo.class, "flipperClawLeft");
 flipperClawRight = hardwareMap.get(Servo.class,"flipperClawRight");
+ringbouncer= hardwareMap.get(Servo.class,"ringbouncer");
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
         leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -100,6 +102,7 @@ flipperClawRight = hardwareMap.get(Servo.class,"flipperClawRight");
         robotController.wobbleSnatcherClose();
         robotController.flipperClawsClose();
         robotController.flipperHalfway();
+        robotController.ringbouncerDown();
         initVuforia();
         initTfod();
 
