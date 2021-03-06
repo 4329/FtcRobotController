@@ -37,6 +37,31 @@ public class RobotController {
         position1 = 1.0;
         moveRingBearer();
     }
+    public void  ringBearerSpasm() {
+
+       long sleeptime = 100;
+        position0 = 0.55;
+        position1 = 0.45;
+        moveRingBearer();
+        sleep(200);
+        for (int i = 0; i < 5; i++) {
+            position0 = 0.5;
+            position1 = 0.5;
+            moveRingBearer();
+            sleep(sleeptime);
+            position0 = 0.55;
+            position1 = 0.45;
+            moveRingBearer();
+            sleep(sleeptime);
+        }
+       moveRingBearer();
+       sleep(150);
+        position0 = 0.60;
+        position1 = 0.40;
+
+
+
+    }
     public void ringBearerHalfway() {
         position0 = 0.15;
         position1 = 0.85;

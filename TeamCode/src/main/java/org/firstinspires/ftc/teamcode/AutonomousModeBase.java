@@ -166,16 +166,16 @@ public abstract class AutonomousModeBase extends LinearOpMode {
             encoderDrive(DRIVE_SPEED, 4, RobotDirection.BACKWARD, 1);
             robotController.ringBearerHalfway();
             sleep(50);
-            turnToAngle(-179);
+            turnToAngle(179);
         } else if (ringStack.equals(RingStack.ONE)) {
             encoderDrive(DRIVE_SPEED, 59, RobotDirection.BACKWARD, 4);
             robotController.endgameWobbleSnatcher();
             sleep(250);
             robotController.ringBearerHalfway();
             sleep(50);
-            turnToAngle(-179);
+            turnToAngle(179);
         } else if (ringStack.equals(RingStack.FOUR)) {
-            encoderDrive(DRIVE_SPEED, 106, RobotDirection.BACKWARD, 5);
+            encoderDrive(DRIVE_SPEED, 80, RobotDirection.BACKWARD, 5);
             //turnToAngle(90);
             robotController.endgameWobbleSnatcher();
             sleep(250);
@@ -195,12 +195,10 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         sleep(750);
         //robotController.ringBearerDown();
         encoderDrive(DRIVE_SPEED, 51.33, RobotDirection.BACKWARD, 5);
-        encoderDrive(DRIVE_SPEED, 10, getStrafeDirection(RobotDirection.STRAFE_LEFT), 3.33);
-        robotController.ringBearerUp();
-        sleep(1000);
+        encoderDrive(DRIVE_SPEED, 5, getStrafeDirection(RobotDirection.STRAFE_LEFT), 3.33);
+        robotController.ringBearerSpasm();
         robotController.ringBearerDown();
-        sleep(500);
-        encoderDrive(DRIVE_SPEED,  21, getStrafeDirection(RobotDirection.STRAFE_LEFT), 5);
+        encoderDrive(DRIVE_SPEED,  26, getStrafeDirection(RobotDirection.STRAFE_LEFT), 5);
         turnToAngle(0);
         encoderDrive(DRIVE_SPEED, 109, RobotDirection.FORWARD, 5.75);
 
@@ -215,10 +213,8 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         //robotController.ringBearerDown();
         encoderDrive(DRIVE_SPEED, 27.50, RobotDirection.BACKWARD, 3.50);
         encoderDrive(DRIVE_SPEED, 19, getStrafeDirection(RobotDirection.STRAFE_RIGHT), 5);
-        robotController.ringBearerUp();
-        sleep(1000);
+        robotController.ringBearerSpasm();
         robotController.ringBearerDown();
-        sleep(500);
         encoderDrive(DRIVE_SPEED,  23, getStrafeDirection(RobotDirection.STRAFE_LEFT), 5);
         turnToAngle(0);
         encoderDrive(DRIVE_SPEED, 109, RobotDirection.FORWARD, 5.75);
@@ -234,10 +230,8 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         //robotController.ringBearerDown();
         encoderDrive(DRIVE_SPEED, 5.5, RobotDirection.BACKWARD, 1);
         encoderDrive(DRIVE_SPEED, 10, getStrafeDirection(RobotDirection.STRAFE_LEFT), 3.33);
-        robotController.ringBearerUp();
-        sleep(1000);
+        robotController.ringBearerSpasm();
         robotController.ringBearerDown();
-        sleep(500);
         encoderDrive(DRIVE_SPEED,  25, getStrafeDirection(RobotDirection.STRAFE_LEFT), 5);
         turnToAngle(0);
         encoderDrive(DRIVE_SPEED, 109, RobotDirection.FORWARD, 5.75);
