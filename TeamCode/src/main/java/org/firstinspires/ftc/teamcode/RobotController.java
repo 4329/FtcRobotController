@@ -54,12 +54,6 @@ public class RobotController {
             moveRingBearer();
             sleep(sleeptime);
         }
-       moveRingBearer();
-       sleep(150);
-        position0 = 0.60;
-        position1 = 0.40;
-
-
 
     }
     public void ringBearerHalfway() {
@@ -215,11 +209,11 @@ public class RobotController {
     }
 
     public void ringbouncerDown() {
-        robot.ringbouncer.setPosition(1);
+        robot.ringbouncer.setPosition(0);
         ringBouncerDown= true;
     }
     public void ringbouncerUp() {
-        robot.ringbouncer.setPosition(.75);
+        robot.ringbouncer.setPosition(.45);
         ringBouncerDown= false;
     }
 
