@@ -197,9 +197,11 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         //robotController.ringBearerDown();
         encoderDrive(DRIVE_SPEED, 51.33, RobotDirection.BACKWARD, 5);
         encoderDrive(DRIVE_SPEED, 13, getStrafeDirection(RobotDirection.STRAFE_LEFT), 3.33);
+        encoderDrive(DRIVE_SPEED, 2.5,RobotDirection.FORWARD,1);
         robotController.ringBearerSpasm();
         robotController.ringBearerDown();
         encoderDrive(DRIVE_SPEED,  26, getStrafeDirection(RobotDirection.STRAFE_LEFT), 5);
+        encoderDrive(DRIVE_SPEED, 2.5,RobotDirection.BACKWARD,1);
         turnToAngle(0);
         encoderDrive(DRIVE_SPEED, 109, RobotDirection.FORWARD, 5.75);
 
@@ -214,9 +216,11 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         //robotController.ringBearerDown();
         encoderDrive(DRIVE_SPEED, 25.50, RobotDirection.BACKWARD, 3.50);
         encoderDrive(DRIVE_SPEED, 19, getStrafeDirection(RobotDirection.STRAFE_RIGHT), 5);
+        encoderDrive(DRIVE_SPEED, 2.5,RobotDirection.FORWARD,1);
         robotController.ringBearerSpasm();
         robotController.ringBearerDown();
         encoderDrive(DRIVE_SPEED,  23, getStrafeDirection(RobotDirection.STRAFE_LEFT), 5);
+        encoderDrive(DRIVE_SPEED, 2.5,RobotDirection.BACKWARD,1);
         turnToAngle(0);
         encoderDrive(DRIVE_SPEED, 109, RobotDirection.FORWARD, 5.75);
 
@@ -231,9 +235,11 @@ public abstract class AutonomousModeBase extends LinearOpMode {
         //robotController.ringBearerDown();
         encoderDrive(DRIVE_SPEED, 3, RobotDirection.BACKWARD, 1);
         encoderDrive(DRIVE_SPEED, 10, getStrafeDirection(RobotDirection.STRAFE_LEFT), 3.33);
+        encoderDrive(DRIVE_SPEED, 2.5,RobotDirection.FORWARD,1);
         robotController.ringBearerSpasm();
         robotController.ringBearerDown();
         encoderDrive(DRIVE_SPEED,  23, getStrafeDirection(RobotDirection.STRAFE_LEFT), 5);
+        encoderDrive(DRIVE_SPEED, 2.5,RobotDirection.BACKWARD,1);
         turnToAngle(0);
         encoderDrive(DRIVE_SPEED, 109, RobotDirection.FORWARD, 5.75);
 

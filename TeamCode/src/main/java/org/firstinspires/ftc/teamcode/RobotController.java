@@ -49,8 +49,8 @@ public class RobotController {
             position1 = 0.5;
             moveRingBearer();
             sleep(sleeptime);
-            position0 = 0.55;
-            position1 = 0.45;
+            position0 = 0.58;
+            position1 = 0.42;
             moveRingBearer();
             sleep(sleeptime);
         }
@@ -158,8 +158,8 @@ public class RobotController {
         clawsOnMat = true;
     }
     public void flipperFloat() {
-        robot.flipperFlipLeft.setPosition(.44);
-        robot.flipperFlipRight.setPosition(.56);
+        robot.flipperFlipLeft.setPosition(.46);
+        robot.flipperFlipRight.setPosition(.54);
         flipperDeployed = true;
         clawsOnMat = false;
     }
